@@ -31,7 +31,6 @@ class Finger_Counter:
         start_counting():
             Starts video capture and counts number of fingers.  
     """
-
     def __init__(self, left=500, right=200, top=100, bottom=350):
         """Init.
 
@@ -103,7 +102,7 @@ class Finger_Counter:
 
         Returns:
             count : int, number of detected fingers
-            """
+        """
         conv_hull = cv2.convexHull(hand_segment)
         # get the farthest points of convex hull in each direction
         top = tuple(conv_hull[conv_hull[:,:,1].argmin()][0])
@@ -148,9 +147,7 @@ class Finger_Counter:
 
         Returns:
             count : int, number of detected fingers
-            """
-
-
+        """
         conv_hull = cv2.convexHull(hand_segment, returnPoints=False)
         # get subset of convex hull containg defects (returns their indices)
         defects = cv2.convexityDefects(hand_segment, conv_hull)
