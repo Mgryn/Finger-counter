@@ -1,7 +1,6 @@
 import cv2
 import numpy as np
 from sklearn.metrics import pairwise
-import pdb
 
 
 class Finger_Counter:
@@ -31,7 +30,6 @@ class Finger_Counter:
         start_counting():
             Starts video capture and counts number of fingers.  
     """
-
     def __init__(self, left=500, right=200, top=100, bottom=350):
         """Init.
 
@@ -103,7 +101,7 @@ class Finger_Counter:
 
         Returns:
             count : int, number of detected fingers
-            """
+        """
         conv_hull = cv2.convexHull(hand_segment)
         # get the farthest points of convex hull in each direction
         top = tuple(conv_hull[conv_hull[:,:,1].argmin()][0])
@@ -148,9 +146,7 @@ class Finger_Counter:
 
         Returns:
             count : int, number of detected fingers
-            """
-
-
+        """
         conv_hull = cv2.convexHull(hand_segment, returnPoints=False)
         # get subset of convex hull containg defects (returns their indices)
         defects = cv2.convexityDefects(hand_segment, conv_hull)
@@ -201,7 +197,7 @@ class Finger_Counter:
                 if hand is not None:
                     # unpack thresholded image and hand segment
                     thresholded, hand_segment = hand
-                    # draw countours of captured hand
+                    # draw contours of captured hand
                     cv2.drawContours(frame_copy, [hand_segment+(self.roi_right, self.roi_top)], -1, (255,0,0), 1)
                     fingers = self.count_fingers_2(thresholded, hand_segment)
                     cv2.putText(frame_copy, 'detected: '+str(fingers), (70,45),
